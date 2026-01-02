@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFuel AI - UI Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom, #0f1115, #1a1d23);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f59338 0%, #f7a356 50%, #fbca9c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #9ca3af;
+            font-size: 18px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-desc {
+            color: #9ca3af;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .screen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .screen {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .screen:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(245, 147, 56, 0.2);
+        }
+
+        .screen h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #f59338;
+        }
+
+        .screen-mockup {
+            background: #1a1d23;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 300px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #d1d5db;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #f59338;
+            font-weight: bold;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f59338, #f7a356);
+            border-radius: 10px;
+            transition: width 2s ease;
+        }
+
+        .chart-placeholder {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: #6b7280;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .food-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .food-name {
+            font-weight: 600;
+        }
+
+        .food-calories {
+            color: #f59338;
+            font-size: 14px;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #f59338, #f7a356);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(245, 147, 56, 0.2);
+            color: #f59338;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .water-glass {
+            display: inline-block;
+            width: 30px;
+            height: 40px;
+            background: linear-gradient(to top, #3b82f6, #60a5fa);
+            border-radius: 5px;
+            margin: 0 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-glass.empty {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .screen-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 32px;
+            }
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+            font-size: 11px;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .highlight {
+            background: rgba(245, 147, 56, 0.1);
+            border: 1px solid rgba(245, 147, 56, 0.3);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏃‍♂️ FitFuel AI</h1>
+            <p>AI-Powered Nutrition Coach - UI Showcase</p>
+        </div>
+
+        <!-- Design Overview -->
+        <div class="section">
+            <h2 class="section-title">🎨 Design System</h2>
+            <p class="section-desc">Modern dark theme with glassmorphism effects and smooth animations</p>
+            
+            <div class="glass-card">
+                <h3 style="margin-bottom: 15px;">Color Palette</h3>
+                <div class="color-palette">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #f59338, #f7a356);">Primary</div>
+                    <div class="color-swatch" style="background: #0f1115;">Dark</div>
+                    <div class="color-swatch" style="background: linear-gradient(to right, #f59338, #ec6417);">Accent</div>
+                    <div class="color-swatch" style="background: linear-gradient(to right, #ef4444, #ec4899);">Protein</div>
+                    <div class="color-swatch" style="background: linear-gradient(to right, #f59e0b, #f97316);">Carbs</div>
+                    <div class="color-swatch" style="background: linear-gradient(to right, #3b82f6, #06b6d4);">Fat</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <h3 style="margin-bottom: 15px;">Technology Stack</h3>
+                <div class="tech-stack">
+                    <div class="tech-item">⚛️ Next.js 14</div>
+                    <div class="tech-item">📘 TypeScript</div>
+                    <div class="tech-item">🎨 Tailwind CSS</div>
+                    <div class="tech-item">✨ Framer Motion</div>
+                    <div class="tech-item">📊 Recharts</div>
+                    <div class="tech-item">🐳 Docker</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">📊</span> Dashboard</h2>
+            <p class="section-desc">Main tracking interface with real-time metrics and visualizations</p>
+            
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Daily Metrics</h3>
+                    <div class="screen-mockup">
+                        <div class="metric-card">
+                            <div class="metric-label">Calories</div>
+                            <div class="metric-value">1,450 <span style="color: #9ca3af; font-size: 16px;">/ 2,000 kcal</span></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72.5%;"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">Protein</div>
+                            <div class="metric-value">85 <span style="color: #9ca3af; font-size: 16px;">/ 150g</span></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 56.6%; background: linear-gradient(90deg, #ef4444, #ec4899);"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">Carbs</div>
+                            <div class="metric-value">180 <span style="color: #9ca3af; font-size: 16px;">/ 250g</span></div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%; background: linear-gradient(90deg, #f59e0b, #f97316);"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Real-time calorie and macro tracking</li>
+                        <li>Animated progress bars</li>
+                        <li>Color-coded metrics</li>
+                        <li>Percentage completion display</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>Charts & Visualizations</h3>
+                    <div class="screen-mockup">
+                        <div class="chart-placeholder">
+                            📊 Interactive Pie Chart<br>
+                            <small>Macro Distribution Visualization</small>
+                        </div>
+                        <div class="chart-placeholder">
+                            📈 Progress Bar Chart<br>
+                            <small>Current vs Goal Comparison</small>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Recharts pie chart for macro breakdown</li>
+                        <li>Bar chart comparing current vs goals</li>
+                        <li>Interactive tooltips on hover</li>
+                        <li>Smooth animations on load</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Water Intake Tracker</h3>
+                    <div class="screen-mockup">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="margin: 20px 0;">
+                                <span class="water-glass"></span>
+                                <span class="water-glass"></span>
+                                <span class="water-glass"></span>
+                                <span class="water-glass"></span>
+                                <span class="water-glass"></span>
+                                <span class="water-glass empty"></span>
+                                <span class="water-glass empty"></span>
+                                <span class="water-glass empty"></span>
+                            </div>
+                            <p style="color: #9ca3af; margin-top: 15px;">5 / 8 glasses (1,250ml)</p>
+                            <button class="button" style="margin-top: 15px;">Add Glass</button>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Visual glass representation</li>
+                        <li>Fill animation effect</li>
+                        <li>One-click water logging</li>
+                        <li>Total volume counter</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>Food Log</h3>
+                    <div class="screen-mockup">
+                        <div class="food-item">
+                            <div>
+                                <div class="food-name">Grilled Chicken Breast</div>
+                                <div style="font-size: 12px; color: #6b7280;">100g serving</div>
+                            </div>
+                            <div class="food-calories">165 cal</div>
+                        </div>
+                        <div class="food-item">
+                            <div>
+                                <div class="food-name">Brown Rice</div>
+                                <div style="font-size: 12px; color: #6b7280;">150g serving</div>
+                            </div>
+                            <div class="food-calories">195 cal</div>
+                        </div>
+                        <div class="food-item">
+                            <div>
+                                <div class="food-name">Mixed Vegetables</div>
+                                <div style="font-size: 12px; color: #6b7280;">200g serving</div>
+                            </div>
+                            <div class="food-calories">80 cal</div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Chronological meal listing</li>
+                        <li>Detailed nutrition breakdown</li>
+                        <li>Quick delete functionality</li>
+                        <li>Time stamps for each entry</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Food Recognition -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">📸</span> AI Food Recognition</h2>
+            <p class="section-desc">Upload photos for instant nutrition analysis</p>
+            
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Image Upload Interface</h3>
+                    <div class="screen-mockup">
+                        <div style="border: 2px dashed rgba(245, 147, 56, 0.5); border-radius: 15px; padding: 40px; text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 15px;">📤</div>
+                            <h4 style="margin-bottom: 10px;">Upload Food Image</h4>
+                            <p style="color: #9ca3af; margin-bottom: 15px;">Drop your image here or click to browse</p>
+                            <div class="tag">JPG</div>
+                            <div class="tag">PNG</div>
+                            <div class="tag">JPEG</div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Drag & drop support</li>
+                        <li>File browser integration</li>
+                        <li>Multiple format support</li>
+                        <li>Example food samples</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>AI Analysis Results</h3>
+                    <div class="screen-mockup">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 40px; margin-bottom: 15px;">✨</div>
+                            <div style="color: #f59338; margin-bottom: 20px;">92% Confidence</div>
+                            <h4 style="font-size: 24px; margin-bottom: 20px;">Grilled Salmon</h4>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="metric-card" style="background: rgba(239, 68, 68, 0.1);">
+                                    <div class="metric-label">Calories</div>
+                                    <div class="metric-value" style="font-size: 24px; color: #f59338;">208</div>
+                                </div>
+                                <div class="metric-card" style="background: rgba(239, 68, 68, 0.1);">
+                                    <div class="metric-label">Protein</div>
+                                    <div class="metric-value" style="font-size: 24px; color: #ef4444;">20g</div>
+                                </div>
+                            </div>
+                            
+                            <button class="button" style="margin-top: 20px; width: 100%;">Add to Daily Log</button>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Confidence score display</li>
+                        <li>Food identification</li>
+                        <li>Complete nutrition breakdown</li>
+                        <li>One-click logging</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals & Progress -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">🎯</span> Goals & Progress</h2>
+            <p class="section-desc">Set targets and track your fitness journey</p>
+            
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Goal Selection</h3>
+                    <div class="screen-mockup">
+                        <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
+                            <div class="glass-card" style="border: 2px solid #f59338;">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="font-size: 32px;">📉</div>
+                                    <div>
+                                        <h4>Lose Weight</h4>
+                                        <p style="font-size: 12px; color: #9ca3af;">500 cal deficit</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="font-size: 32px;">➖</div>
+                                    <div>
+                                        <h4>Maintain Weight</h4>
+                                        <p style="font-size: 12px; color: #9ca3af;">Balanced nutrition</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card">
+                                <div style="display: flex; align-items: center; gap: 15px;">
+                                    <div style="font-size: 32px;">📈</div>
+                                    <div>
+                                        <h4>Gain Weight</h4>
+                                        <p style="font-size: 12px; color: #9ca3af;">500 cal surplus</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Three goal types (lose/maintain/gain)</li>
+                        <li>Visual card selection</li>
+                        <li>Auto-calculated targets</li>
+                        <li>Instant goal updates</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>Weight Tracking</h3>
+                    <div class="screen-mockup">
+                        <div class="metric-card">
+                            <div class="metric-label">Current Weight</div>
+                            <div class="metric-value">70.0 kg</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Target Weight</div>
+                            <div class="metric-value">65.0 kg</div>
+                        </div>
+                        <div class="metric-card" style="background: rgba(245, 147, 56, 0.1);">
+                            <div class="metric-label">Remaining</div>
+                            <div class="metric-value" style="color: #f59338;">5.0 kg <span style="font-size: 16px;">to lose</span></div>
+                        </div>
+                        <div class="chart-placeholder" style="margin-top: 15px;">
+                            📈 Weight Progress Chart<br>
+                            <small>Line graph showing weight history</small>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Quick weight updates</li>
+                        <li>Progress calculations</li>
+                        <li>Historical weight chart</li>
+                        <li>Trend visualization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meal Plans -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">🍽️</span> AI Meal Plans</h2>
+            <p class="section-desc">Personalized meal suggestions based on your goals</p>
+            
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Meal Suggestions</h3>
+                    <div class="screen-mockup">
+                        <div class="highlight">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div class="metric-label">Remaining Today</div>
+                                    <div style="font-size: 32px; font-weight: 700; background: linear-gradient(135deg, #f59338, #fbca9c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                        550 kcal
+                                    </div>
+                                </div>
+                                <button class="button">Generate Plan</button>
+                            </div>
+                        </div>
+                        
+                        <div class="glass-card">
+                            <h4 style="margin-bottom: 10px;">🥗 Grilled Chicken & Vegetables</h4>
+                            <p style="font-size: 12px; color: #9ca3af; margin-bottom: 15px;">Lean protein with colorful roasted vegetables</p>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px;">
+                                <div style="background: rgba(245, 147, 56, 0.1); padding: 8px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 10px; color: #9ca3af;">Calories</div>
+                                    <div style="color: #f59338; font-weight: 700;">450</div>
+                                </div>
+                                <div style="background: rgba(239, 68, 68, 0.1); padding: 8px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 10px; color: #9ca3af;">Protein</div>
+                                    <div style="color: #ef4444; font-weight: 700;">45g</div>
+                                </div>
+                                <div style="background: rgba(245, 158, 11, 0.1); padding: 8px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 10px; color: #9ca3af;">Carbs</div>
+                                    <div style="color: #f59e0b; font-weight: 700;">35g</div>
+                                </div>
+                                <div style="background: rgba(59, 130, 246, 0.1); padding: 8px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 10px; color: #9ca3af;">Fat</div>
+                                    <div style="color: #3b82f6; font-weight: 700;">12g</div>
+                                </div>
+                            </div>
+                            <button class="button" style="width: 100%; font-size: 14px; padding: 10px;">Add to Log</button>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Smart calorie-based filtering</li>
+                        <li>Complete nutrition info</li>
+                        <li>Ingredient lists</li>
+                        <li>Quick add functionality</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>Weekly Planning</h3>
+                    <div class="screen-mockup">
+                        <div style="display: grid; gap: 10px;">
+                            <div class="glass-card">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 24px;">💪</span>
+                                    <div>
+                                        <div style="font-weight: 600;">Monday</div>
+                                        <div style="font-size: 12px; color: #9ca3af;">High Protein</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 24px;">⚖️</span>
+                                    <div>
+                                        <div style="font-weight: 600;">Tuesday</div>
+                                        <div style="font-size: 12px; color: #9ca3af;">Balanced Macros</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="glass-card">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 24px;">🥗</span>
+                                    <div>
+                                        <div style="font-weight: 600;">Wednesday</div>
+                                        <div style="font-size: 12px; color: #9ca3af;">Low Carb</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>7-day meal planning overview</li>
+                        <li>Theme-based suggestions</li>
+                        <li>Visual icons for each day</li>
+                        <li>Flexible scheduling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Tips -->
+        <div class="section">
+            <h2 class="section-title"><span class="icon">💡</span> Health Tips & Insights</h2>
+            <p class="section-desc">Personalized nutrition advice and analysis</p>
+            
+            <div class="screen-grid">
+                <div class="screen">
+                    <h3>Daily Tip</h3>
+                    <div class="screen-mockup">
+                        <div class="highlight">
+                            <div style="display: flex; align-items: start; gap: 15px; margin-bottom: 15px;">
+                                <span style="font-size: 40px;">💧</span>
+                                <div>
+                                    <div style="color: #f59338; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 5px;">TIP OF THE DAY</div>
+                                    <h4 style="font-size: 20px; margin-bottom: 10px;">Stay Hydrated</h4>
+                                    <p style="color: #d1d5db; line-height: 1.6;">Drink at least 8 glasses of water daily. Proper hydration supports metabolism and helps control appetite.</p>
+                                </div>
+                            </div>
+                            <button class="button" style="padding: 8px 16px; font-size: 14px;">🔄 Refresh Tip</button>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Rotating daily tips</li>
+                        <li>Category-based advice</li>
+                        <li>Refresh for new tips</li>
+                        <li>Visual icons for engagement</li>
+                    </ul>
+                </div>
+
+                <div class="screen">
+                    <h3>Personal Insights</h3>
+                    <div class="screen-mockup">
+                        <div class="glass-card">
+                            <div style="display: flex; gap: 10px; align-items: start;">
+                                <span style="font-size: 24px;">💪</span>
+                                <div>
+                                    <p style="color: #d1d5db;">Great protein intake! This supports muscle maintenance and recovery.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card">
+                            <div style="display: flex; gap: 10px; align-items: start;">
+                                <span style="font-size: 24px;">⚠️</span>
+                                <div>
+                                    <p style="color: #d1d5db;">Your carb intake is low. Perfect for ketogenic or low-carb diets.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px;">
+                            <h4 style="margin-bottom: 10px; font-size: 14px; color: #9ca3af;">Macro Balance</h4>
+                            <div class="metric-card">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #9ca3af;">Protein</span>
+                                    <span style="color: #ef4444; font-weight: 700;">85%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%; background: linear-gradient(90deg, #ef4444, #ec4899);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>AI-powered insights</li>
+                        <li>Personalized recommendations</li>
+                        <li>Macro balance analysis</li>
+                        <li>Contextual tips</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Summary -->
+        <div class="section">
+            <h2 class="section-title">✨ Design Features</h2>
+            <div class="glass-card">
+                <div class="screen-grid">
+                    <div>
+                        <h3 style="color: #f59338; margin-bottom: 15px;">Visual Effects</h3>
+                        <ul class="feature-list">
+                            <li>Glassmorphism throughout</li>
+                            <li>Smooth Framer Motion animations</li>
+                            <li>Page transition effects</li>
+                            <li>Hover and click feedback</li>
+                            <li>Loading skeleton screens</li>
+                            <li>Success animations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: #f59338; margin-bottom: 15px;">Responsive Design</h3>
+                        <ul class="feature-list">
+                            <li>Mobile-first approach</li>
+                            <li>Tablet-optimized layouts</li>
+                            <li>Desktop multi-column grids</li>
+                            <li>Touch-friendly interactions</li>
+                            <li>Adaptive navigation</li>
+                            <li>Flexible components</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding: 40px; color: #6b7280;">
+            <p style="font-size: 18px; margin-bottom: 10px;">🚀 Ready to use this application?</p>
+            <p>Extract the ZIP, run with Docker, and start tracking your nutrition!</p>
+            <div style="margin-top: 20px;">
+                <span class="tag">Next.js</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Tailwind</span>
+                <span class="tag">Framer Motion</span>
+                <span class="tag">Docker</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation on load
+        window.addEventListener('load', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitFuel AI - UI Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom, #0f1115, #1a1d23);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #f59338 0%, #fbca9c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9ca3af;
+            margin-bottom: 3rem;
+        }
+
+        .screen {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .screen-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .screen-desc {
+            color: #9ca3af;
+            margin-bottom: 2rem;
+        }
+
+        .header-demo {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flame {
+            font-size: 2.5rem;
+        }
+
+        .logo-text h2 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #f59338 0%, #fbca9c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(245, 147, 56, 0.3);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(245, 147, 56, 0.3);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(245, 147, 56, 0.2);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .calories { background: linear-gradient(135deg, #f59338, #ef4444); }
+        .protein { background: linear-gradient(135deg, #ef4444, #ec4899); }
+        .carbs { background: linear-gradient(135deg, #eab308, #f59338); }
+        .fat { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .metric-value span {
+            font-size: 1rem;
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-out;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-align: right;
+        }
+
+        .water-tracker {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .water-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .water-glasses {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .glass {
+            flex: 1;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .glass-fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, #3b82f6, #06b6d4);
+            transition: height 0.5s ease-out;
+        }
+
+        .glass.filled .glass-fill {
+            height: 100%;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f59338, #f1802b);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(245, 147, 56, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .upload-zone {
+            border: 2px dashed #6b7280;
+            border-radius: 16px;
+            padding: 60px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        .upload-zone:hover {
+            border-color: #f59338;
+            background: rgba(245, 147, 56, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .example-foods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .example-food {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .example-food:hover {
+            transform: scale(1.05);
+            border-color: rgba(245, 147, 56, 0.3);
+        }
+
+        .food-emoji {
+            font-size: 3rem;
+            margin-bottom: 8px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-glow {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(245, 147, 56, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tip-icon {
+            font-size: 3rem;
+        }
+
+        .tip-title {
+            font-size: 1.75rem;
+            margin-bottom: 16px;
+        }
+
+        .tip-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #d1d5db;
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-foods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .refresh-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: white;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.1) rotate(180deg);
+            background: rgba(245, 147, 56, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏃‍♂️ FitFuel AI</h1>
+        <p class="subtitle">Interactive UI Preview - Modern Nutrition Tracking App</p>
+
+        <!-- Header Demo -->
+        <div class="screen">
+            <h2 class="screen-title">📱 Navigation Header</h2>
+            <p class="screen-desc">Glassmorphism header with smooth tab transitions</p>
+            
+            <div class="header-demo">
+                <div class="logo">
+                    <span class="flame">🔥</span>
+                    <div class="logo-text">
+                        <h2>FitFuel AI</h2>
+                        <p>Powered by Intelligence</p>
+                    </div>
+                </div>
+                <div class="nav">
+                    <div class="nav-item active">📊 Dashboard</div>
+                    <div class="nav-item">📸 Scan</div>
+                    <div class="nav-item">🎯 Goals</div>
+                    <div class="nav-item">🍽️ Meals</div>
+                    <div class="nav-item">💡 Tips</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="screen">
+            <h2 class="screen-title">📊 Dashboard Metrics</h2>
+            <p class="screen-desc">Real-time nutrition tracking with animated progress bars</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon calories">🔥</div>
+                        <div>
+                            <div style="font-size: 0.875rem; color: #9ca3af;">Calories</div>
+                            <div class="metric-value">1250 <span>/ 2000 kcal</span></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62%; background: linear-gradient(90deg, #f59338, #ef4444);"></div>
+                    </div>
+                    <div class="progress-text">62% of daily goal</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon protein">🥩</div>
+                        <div>
+                            <div style="font-size: 0.875rem; color: #9ca3af;">Protein</div>
+                            <div class="metric-value">45 <span>/ 150g</span></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 30%; background: linear-gradient(90deg, #ef4444, #ec4899);"></div>
+                    </div>
+                    <div class="progress-text">30% of daily goal</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon carbs">🌾</div>
+                        <div>
+                            <div style="font-size: 0.875rem; color: #9ca3af;">Carbs</div>
+                            <div class="metric-value">120 <span>/ 250g</span></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 48%; background: linear-gradient(90deg, #eab308, #f59338);"></div>
+                    </div>
+                    <div class="progress-text">48% of daily goal</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon fat">💧</div>
+                        <div>
+                            <div style="font-size: 0.875rem; color: #9ca3af;">Fat</div>
+                            <div class="metric-value">30 <span>/ 65g</span></div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 46%; background: linear-gradient(90deg, #3b82f6, #06b6d4);"></div>
+                    </div>
+                    <div class="progress-text">46% of daily goal</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Water Tracker -->
+        <div class="screen">
+            <h2 class="screen-title">💧 Water Intake Tracker</h2>
+            <p class="screen-desc">Visual glass tracker with smooth fill animations</p>
+            
+            <div class="water-tracker">
+                <div class="water-header">
+                    <h3 style="display: flex; align-items: center; gap: 10px;">
+                        <span>💧</span> Water Intake
+                    </h3>
+                    <button class="btn" onclick="addWater()">Add Glass</button>
+                </div>
+                <div class="water-glasses" id="waterGlasses">
+                    <div class="glass filled"><div class="glass-fill"></div></div>
+                    <div class="glass filled"><div class="glass-fill"></div></div>
+                    <div class="glass filled"><div class="glass-fill"></div></div>
+                    <div class="glass filled"><div class="glass-fill"></div></div>
+                    <div class="glass filled"><div class="glass-fill"></div></div>
+                    <div class="glass"><div class="glass-fill"></div></div>
+                    <div class="glass"><div class="glass-fill"></div></div>
+                    <div class="glass"><div class="glass-fill"></div></div>
+                </div>
+                <p style="font-size: 0.875rem; color: #9ca3af;" id="waterCount">5 / 8 glasses (1250ml)</p>
+            </div>
+        </div>
+
+        <!-- Food Scanner -->
+        <div class="screen">
+            <h2 class="screen-title">📸 AI Food Recognition</h2>
+            <p class="screen-desc">Upload interface with drag & drop support</p>
+            
+            <div class="upload-zone">
+                <div class="upload-icon">📤</div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 12px;">Upload Food Image</h3>
+                <p style="color: #9ca3af; margin-bottom: 16px;">Drop your image here or click to browse</p>
+                <p style="font-size: 0.875rem; color: #6b7280;">Supports: JPG, PNG, JPEG</p>
+            </div>
+
+            <p style="font-size: 0.875rem; color: #9ca3af; margin-bottom: 16px;">Quick Examples:</p>
+            <div class="example-foods">
+                <div class="example-food">
+                    <div class="food-emoji">🍗</div>
+                    <div>Chicken</div>
+                </div>
+                <div class="example-food">
+                    <div class="food-emoji">🥗</div>
+                    <div>Salad</div>
+                </div>
+                <div class="example-food">
+                    <div class="food-emoji">🍝</div>
+                    <div>Pasta</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Tip -->
+        <div class="screen">
+            <h2 class="screen-title">💡 Daily Health Tip</h2>
+            <p class="screen-desc">Personalized nutrition advice with rotating tips</p>
+            
+            <div class="tip-card">
+                <div class="tip-glow"></div>
+                <div class="tip-header">
+                    <div>
+                        <div style="font-size: 0.875rem; color: #f59338; font-weight: 600; letter-spacing: 0.05em;">TIP OF THE DAY</div>
+                        <h3 class="tip-title" id="tipTitle">Stay Hydrated</h3>
+                    </div>
+                    <button class="refresh-btn" onclick="refreshTip()">🔄</button>
+                </div>
+                <p class="tip-text" id="tipText">Drink at least 8 glasses of water daily. Proper hydration supports metabolism and helps control appetite.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 0; color: #9ca3af;">
+            <p>🎉 This is a preview of FitFuel AI's beautiful, modern interface!</p>
+            <p style="margin-top: 10px;">Run the full app with Docker or npm to experience all features.</p>
+        </div>
+    </div>
+
+    <script>
+        let waterCount = 5;
+
+        function addWater() {
+            if (waterCount < 8) {
+                waterCount++;
+                const glasses = document.querySelectorAll('.glass');
+                glasses[waterCount - 1].classList.add('filled');
+                document.getElementById('waterCount').textContent = `${waterCount} / 8 glasses (${waterCount * 250}ml)`;
+            }
+        }
+
+        const tips = [
+            { title: "Stay Hydrated", text: "Drink at least 8 glasses of water daily. Proper hydration supports metabolism and helps control appetite." },
+            { title: "Protein Power", text: "Aim for 0.8-1g of protein per pound of body weight to support muscle maintenance and satiety." },
+            { title: "Time Your Carbs", text: "Consume most carbs around workouts for optimal energy and recovery." },
+            { title: "Fiber is Your Friend", text: "Aim for 25-30g of fiber daily to support digestion and maintain steady energy levels." },
+            { title: "Healthy Fats Matter", text: "Include omega-3 rich foods like fish, nuts, and avocados for heart and brain health." }
+        ];
+
+        let currentTip = 0;
+
+        function refreshTip() {
+            currentTip = (currentTip + 1) % tips.length;
+            document.getElementById('tipTitle').textContent = tips[currentTip].title;
+            document.getElementById('tipText').textContent = tips[currentTip].text;
+        }
+    </script>
+</body>
+</html>
