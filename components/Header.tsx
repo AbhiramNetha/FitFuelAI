@@ -39,7 +39,7 @@ export default function Header({ activeTab, onTabChange }: HeaderProps) {
               <h1 className="text-2xl font-display font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-amber-600 dark:from-yellow-400 dark:to-amber-400">
                 FitFuel AI
               </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Powered by Intelligence</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">By Abhiram Netha</p>
             </div>
           </motion.div>
 
